@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink, Route } from 'react-router-dom';
-import SimpleStorageContract from './contracts/SimpleStorage.json';
+import TrophyToken from './contracts/TrophyToken.json';
 import getWeb3 from './utils/getWeb3';
 import { Container, Image, Input, Menu } from 'semantic-ui-react';
 import CreateTrophy from './CreateTrophy';
@@ -12,7 +12,7 @@ import 'semantic-ui-forest-themes/semantic.darkly.min.css';
 import trophy from './trophies/trophy_1.svg';
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  state = { web3: null, accounts: null, contract: null };
 
   componentDidMount = async () => {
     try {
@@ -24,9 +24,9 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = SimpleStorageContract.networks[networkId];
+      const deployedNetwork = TrophyToken.networks[networkId];
       const instance = new web3.eth.Contract(
-        SimpleStorageContract.abi,
+        TrophyToken.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
