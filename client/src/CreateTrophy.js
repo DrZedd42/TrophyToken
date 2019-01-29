@@ -11,27 +11,30 @@ class CreateTrophy extends Component {
     trophy: 0
   };
 
-  onChange = async (e, { name, value }) => this.setState({ [name]: value });
+  onChange = (e, { name, value }) => this.setState({ [name]: value });
 
-  onTrophyClick = event => {
-    const trophy = event.currentTarget.value;
-    this.setState({ trophy });
-  };
+  onTrophyClick = (e, { value }) => this.setState({ trophy: value });
 
   render() {
     const { title, address, trophy } = this.state;
 
     const defaultTitle = 'Enter Trophy Title...';
 
-    const trophiesList = trophies.map((trophy, index) => {
+    const trophiesList = trophies.map((src, index) => {
       return (
         <List.Item
           key={index}
           className="trophyListItem"
         >
           <List.Content>
-            <Button compact fluid value={index} onClick={this.onTrophyClick}>
-              <Image centered src={trophy} />
+            <Button
+              compact
+              fluid
+              value={index}
+              basic={trophy === index}
+              onClick={this.onTrophyClick}
+            >
+              <Image centered src={src} />
             </Button>
           </List.Content>
         </List.Item>
