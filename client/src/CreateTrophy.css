@@ -1,0 +1,32 @@
+.CreateTrophy .ui.header:first-child {
+    margin-top: calc(2rem - .14285714em);
+}
+
+.ui.card.trophyCard>.content:first-child {
+    padding: 10% 15% 5%;
+}
+
+.trophyCardImage {
+    max-height: 26em;
+}
+
+.trophyCard .header {
+    white-space: pre-wrap;
+}
+
+.ui.segment.trophyListSegment {
+    padding-right: 0.6em;
+}
+
+.trophyListItem {
+    width: 20%;
+}
+
+.trophyListItem .ui.image {
+    height: 5em;
+}
+
+.ui.horizontal.list>.item.trophyListItem {
+    margin-left: 0;
+    padding: 0.2em 0.4em 0.2em 0;
+}
