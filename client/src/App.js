@@ -43,7 +43,7 @@ class App extends Component {
   };
 
   render() {
-    const { web3, accounts } = this.state;
+    const { web3, accounts, contract } = this.state;
 
     if (!web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -68,7 +68,17 @@ class App extends Component {
           </Menu.Menu>
         </Menu>
         <Container>
-          <Route exact path="/" component={CreateTrophy} />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <CreateTrophy
+                {...props}
+                accounts={accounts}
+                contract={contract}
+              />
+            )}
+          />
           <Route path="/view/:address" component={ViewAccountTrophies} />
         </Container>
       </div>

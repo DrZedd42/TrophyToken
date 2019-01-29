@@ -8,15 +8,39 @@ class CreateTrophy extends Component {
   state ={
     title: '',
     address: '',
-    trophy: 0
+    trophy: 0,
+    loading: false,
+    errorMessage: ''
   };
 
   onChange = (e, { name, value }) => this.setState({ [name]: value });
 
-  onTrophyClick = (e, { value }) => this.setState({ trophy: value });
+  onTrophyClick = (e, { value }) => {
+    e.preventDefault();
+    this.setState({ trophy: value });
+  };
+
+  onSubmit = async event => {
+    this.setState({ loading: true, errorMessage: '' });
+
+    const { accounts, contract } = this.props;
+    const { title, address, trophy } = this.state;
+
+    try {
+      await contract.methods.mint(address, title, trophy, '').send({
+        from: accounts[0]
+      });
+
+      this.setState({ title: '', address: '', trophy: 0 });
+    } catch(error) {
+      this.setState({ errorMessage: error.message });
+    }
+
+    this.setState({ loading: false });
+  }
 
   render() {
-    const { title, address, trophy } = this.state;
+    const { title, address, trophy, loading, errorMessage } = this.state;
 
     const defaultTitle = 'Enter Trophy Title...';
 
@@ -68,7 +92,11 @@ class CreateTrophy extends Component {
               </Card>
             </Grid.Column>
             <Grid.Column>
-              <Form>
+              <Form
+                loading={loading}
+                error={!!errorMessage}
+                onSubmit={this.onSubmit}
+              >
                 <Form.TextArea
                   name="title"
                   value={title}
