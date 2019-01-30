@@ -26,7 +26,6 @@ class Trophy extends Component {
             src={trophies[trophy]}
             fluid
             centered
-            verticalAlign="bottom"
             className="trophyCardImage"
           />
         </Card.Content>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route, withRouter } from 'react-router-dom';
 import TrophyToken from './contracts/TrophyToken.json';
 import getWeb3 from './utils/getWeb3';
 import { Container, Image, Input, Menu } from 'semantic-ui-react';
@@ -12,7 +12,12 @@ import 'semantic-ui-forest-themes/semantic.darkly.min.css';
 import trophy from './trophies/trophy_1.svg';
 
 class App extends Component {
-  state = { web3: null, accounts: null, contract: null };
+  state = {
+    web3: null,
+    accounts: null,
+    contract: null,
+    search: ''
+  };
 
   componentDidMount = async () => {
     try {
@@ -42,8 +47,20 @@ class App extends Component {
     }
   };
 
+  onChangeSearch = async (e, { name, value }) => {
+    const { history } = this.props;
+    const { web3 } = this.state;
+
+    this.setState({ [name]: value });
+
+    if (web3.utils.isAddress(value)) {
+      history.push(`/view/${value}`);
+      this.setState({ [name]: '' });
+    }
+  };
+
   render() {
-    const { web3, accounts, contract } = this.state;
+    const { web3, accounts, contract, search } = this.state;
 
     if (!web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -63,7 +80,13 @@ class App extends Component {
               View My Trophies
             </Menu.Item>
             <Menu.Item>
-              <Input icon="search" placeholder="Search addresses" />
+              <Input
+                icon="search"
+                placeholder="Search addresses"
+                name="search"
+                value={search}
+                onChange={this.onChangeSearch}
+              />
             </Menu.Item>
           </Menu.Menu>
         </Menu>
@@ -76,7 +99,12 @@ class App extends Component {
             />
           )} />
           <Route path="/view/:address" render={props => (
-            <ViewAccountTrophies {...props} contract={contract} />
+            <ViewAccountTrophies
+              {...props}
+              accounts={accounts}
+              contract={contract}
+              key={props.match.params.address}
+            />
           )} />
         </Container>
       </div>
@@ -84,4 +112,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);

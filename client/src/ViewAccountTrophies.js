@@ -21,8 +21,15 @@ class ViewAccountTrophies extends Component {
   }
 
   render() {
-    const { contract } = this.props;
+    const {
+      match: { params: { address } },
+      accounts,
+      contract
+    } = this.props;
+
     const { trophies } = this.state;
+
+    const titleAddress = address === accounts[0] ? 'My' : 'Address';
 
     const trophyList = trophies.map(trophy => {
       return <Trophy key={trophy} contract={contract} tokenId={trophy} />
@@ -30,9 +37,12 @@ class ViewAccountTrophies extends Component {
 
     return (
       <div className="ViewAccountTrophies">
-        <Header as="h1" textAlign="center">View My Trophies</Header>
+        <Header as="h1" textAlign="center">
+          View {titleAddress} Trophies
+          <Header.Subheader>{address}</Header.Subheader>
+        </Header>
         <Divider />
-        <Card.Group stackable>
+        <Card.Group stackable itemsPerRow={3}>
           {trophyList}
         </Card.Group>
       </div>

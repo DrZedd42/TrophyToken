@@ -1,7 +1,3 @@
-.ui.cards>.card.trophyCard {
-    justify-content: flex-end;
-}
-
 .ui.cards>.card.trophyCard>.content:first-child {
     max-height: 20em;
     min-height: 20em;
