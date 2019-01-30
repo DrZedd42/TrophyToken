@@ -1,7 +1,19 @@
 import React, { Component } from 'react';
-import { Button, Card, Form, Grid, Header, Image, List, Message, Segment } from 'semantic-ui-react';
+import {
+  Button,
+  Card,
+  Divider,
+  Form,
+  Grid,
+  Header,
+  Image,
+  List,
+  Message,
+  Segment
+} from 'semantic-ui-react';
 import trophies from './utils/trophies';
 
+import './Trophy.css';
 import './CreateTrophy.css';
 
 class CreateTrophy extends Component {
@@ -71,6 +83,7 @@ class CreateTrophy extends Component {
           <Grid.Row>
             <Grid.Column width={16}>
               <Header as="h1" textAlign="center">Create New Trophy</Header>
+              <Divider fitted />
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -100,7 +113,7 @@ class CreateTrophy extends Component {
                 <Form.TextArea
                   name="title"
                   value={title}
-                  label="Title"
+                  label="Trophy title"
                   onChange={this.onChange}
                 />
                 <Form.Input

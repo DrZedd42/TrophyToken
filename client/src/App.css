@@ -5,3 +5,7 @@
 .menuHeaderImage {
     max-height: 1.8em;
 }
+
+h1.ui.header:first-child {
+    margin-top: calc(3rem - .14285714em);
+}

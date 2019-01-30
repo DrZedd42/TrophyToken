@@ -68,18 +68,16 @@ class App extends Component {
           </Menu.Menu>
         </Menu>
         <Container>
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <CreateTrophy
-                {...props}
-                accounts={accounts}
-                contract={contract}
-              />
-            )}
-          />
-          <Route path="/view/:address" component={ViewAccountTrophies} />
+          <Route exact path="/" render={props => (
+            <CreateTrophy
+              {...props}
+              accounts={accounts}
+              contract={contract}
+            />
+          )} />
+          <Route path="/view/:address" render={props => (
+            <ViewAccountTrophies {...props} contract={contract} />
+          )} />
         </Container>
       </div>
     );

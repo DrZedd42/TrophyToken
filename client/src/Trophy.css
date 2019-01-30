@@ -1,0 +1,26 @@
+.ui.cards>.card.trophyCard {
+    justify-content: flex-end;
+}
+
+.ui.cards>.card.trophyCard>.content:first-child {
+    max-height: 20em;
+    min-height: 20em;
+    display: flex;
+    align-items: flex-end;
+}
+
+.ui.card.trophyCard>.content:first-child {
+    padding: 2em 2.9em 1em;
+}
+
+.ui.cards>.card.trophyCard>.content>.trophyCardImage {
+    max-height: 17em;
+}
+
+.trophyCardImage {
+    max-height: 26em;
+}
+
+.trophyCard .header {
+    white-space: pre-wrap;
+}
