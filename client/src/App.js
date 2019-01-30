@@ -2,7 +2,14 @@ import React, { Component } from 'react';
 import { NavLink, Route, withRouter } from 'react-router-dom';
 import TrophyToken from './contracts/TrophyToken.json';
 import getWeb3 from './utils/getWeb3';
-import { Container, Image, Input, Menu } from 'semantic-ui-react';
+import {
+  Card,
+  Container,
+  Image,
+  Input,
+  Loader,
+  Menu
+} from 'semantic-ui-react';
 import CreateTrophy from './CreateTrophy';
 import ViewAccountTrophies from './ViewAccountTrophies';
 
@@ -10,16 +17,20 @@ import './App.css';
 import 'semantic-ui-forest-themes/semantic.darkly.min.css';
 
 import trophy from './trophies/trophy_1.svg';
+import metamask from './metamask.svg';
 
 class App extends Component {
   state = {
     web3: null,
     accounts: null,
     contract: null,
-    search: ''
+    search: '',
+    loading: false
   };
 
   componentDidMount = async () => {
+    this.setState({ loading: true });
+
     try {
       // Get network provider and web3 instance.
       const web3 = await getWeb3();
@@ -40,11 +51,10 @@ class App extends Component {
       this.setState({ web3, accounts, contract: instance });
     } catch (error) {
       // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
       console.error(error);
     }
+
+    this.setState({ loading: false });
   };
 
   onChangeSearch = async (e, { name, value }) => {
@@ -60,10 +70,38 @@ class App extends Component {
   };
 
   render() {
-    const { web3, accounts, contract, search } = this.state;
+    const { web3, accounts, contract, search, loading } = this.state;
+
+    if (loading) {
+      return <Loader active />;
+    }
 
     if (!web3) {
-      return <div>Loading Web3, accounts, and contract...</div>;
+      return (
+        <div className="App">
+          <Menu fixed="top">
+            <Menu.Item header>
+              <Image src={trophy} className="menuHeaderImage" />
+              &nbsp;
+              TrophyToken
+            </Menu.Item>
+          </Menu>
+          <Container>
+            <Card
+              centered
+              target="_blank"
+              href="https://metamask.io/"
+              className="installMetaMaskCard"
+            >
+              <Image fluid src={metamask} />
+              <Card.Content>
+                <Card.Header>Install MetaMask to continue</Card.Header>
+                <Card.Description>MetaMask is required to connect your Ethereum wallet to the TrophyToken DApp.</Card.Description>
+              </Card.Content>
+            </Card>
+          </Container>
+        </div>
+      );
     }
 
     return (
