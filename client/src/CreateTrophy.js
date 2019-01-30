@@ -111,12 +111,14 @@ class CreateTrophy extends Component {
                 onSubmit={this.onSubmit}
               >
                 <Form.TextArea
+                  required
                   name="title"
                   value={title}
                   label="Trophy title"
                   onChange={this.onChange}
                 />
                 <Form.Input
+                  required
                   name="address"
                   value={address}
                   label="Send to address"
@@ -127,7 +129,7 @@ class CreateTrophy extends Component {
                     {trophiesList}
                   </List>
                 </Segment>
-                <Message error />
+                <Message error header="Error" content={errorMessage} />
                 <Form.Button primary fluid size="huge">
                   Send Trophy!
                 </Form.Button>

@@ -1,3 +1,7 @@
+.CreateTrophy .ui.form .required.field>label:after {
+    display: none;
+}
+
 .ui.segment.trophyListSegment {
     padding-right: 0.6em;
 }
