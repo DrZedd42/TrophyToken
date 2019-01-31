@@ -54,7 +54,7 @@ contract TrophyToken is ERC721Full, Ownable {
 
     function uintToString(uint256 i) internal pure returns (string memory) {
         if (i == 0) {
-            return "0";
+            return '0';
         }
 
         uint256 j = i;
