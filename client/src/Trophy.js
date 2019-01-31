@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, Image } from 'semantic-ui-react';
 import trophies from './utils/trophies';
 
@@ -17,10 +18,23 @@ class Trophy extends Component {
   }
 
   render() {
+    const { tokenId, link } = this.props;
     const { title, trophy } = this.state;
 
+    let linkProps = {};
+    if (link) {
+      linkProps = {
+        as: Link,
+        to: `/trophy/${tokenId}`
+      }
+    }
+
     return (
-      <Card className="trophyCard">
+      <Card
+        {...linkProps}
+        className="trophyCard"
+        fluid
+      >
         <Card.Content>
           <Image
             src={trophies[trophy]}

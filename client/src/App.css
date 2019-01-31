@@ -10,6 +10,7 @@ h1.ui.header:first-child {
     margin-top: calc(3rem - .14285714em);
 }
 
+.App .ui.cards a.card:hover,
 .App a.ui.card:hover {
     background: #111;
     box-shadow: 0 1px 3px 0 #000, 0 0 0 1px #000;

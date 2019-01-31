@@ -12,6 +12,7 @@ import {
 } from 'semantic-ui-react';
 import CreateTrophy from './CreateTrophy';
 import ViewAccountTrophies from './ViewAccountTrophies';
+import ViewTrophy from './ViewTrophy';
 
 import './App.css';
 import 'semantic-ui-forest-themes/semantic.darkly.min.css';
@@ -142,6 +143,12 @@ class App extends Component {
               accounts={accounts}
               contract={contract}
               key={props.match.params.address}
+            />
+          )} />
+          <Route path="/trophy/:tokenId" render={props => (
+            <ViewTrophy
+              {...props}
+              contract={contract}
             />
           )} />
         </Container>

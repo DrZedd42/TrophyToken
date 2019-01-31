@@ -39,7 +39,7 @@ class CreateTrophy extends Component {
     const { title, address, trophy } = this.state;
 
     try {
-      await contract.methods.mint(address, title, trophy, '').send({
+      await contract.methods.mint(address, title, trophy).send({
         from: accounts[0]
       });
 

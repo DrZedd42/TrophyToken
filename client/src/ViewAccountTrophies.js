@@ -32,7 +32,7 @@ class ViewAccountTrophies extends Component {
     const titleAddress = address === accounts[0] ? 'My' : 'Address';
 
     const trophyList = trophies.map(trophy => {
-      return <Trophy key={trophy} contract={contract} tokenId={trophy} />
+      return <Trophy key={trophy} contract={contract} tokenId={trophy} link />
     });
 
     return (
