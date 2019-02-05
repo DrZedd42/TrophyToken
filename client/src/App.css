@@ -21,7 +21,7 @@ h1.ui.header:first-child {
 }
 
 h1.ui.header.BigHeader {
-    font-size: 7rem;
+    font-size: 5rem;
 }
 
 h1.ui.header.BigHeader .sub.header {
