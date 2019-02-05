@@ -4,6 +4,10 @@ import MetaMask from './MetaMask';
 import TrophyToken from './contracts/TrophyToken.json';
 import { Dimmer, Loader } from 'semantic-ui-react';
 
+/**
+ * WrappedComponent should use componentWillReceiveProps to implement web3
+ * calls instead of componentDidMount.
+ */
 function withWeb3(WrappedComponent) {
   return class extends Component {
     state = {
@@ -45,7 +49,7 @@ function withWeb3(WrappedComponent) {
     render() {
       const { web3, accounts, contract, loading } = this.state;
 
-      if (!web3) {
+      if (!web3 && !loading) {
         return <MetaMask />;
       }
 
