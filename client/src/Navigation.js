@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { Image, Input, Menu } from 'semantic-ui-react';
 
-import trophy from './trophies/trophy_1.svg';
+import trophy from './trophies/trophy_8.svg';
 
 class Navigation extends Component {
   state = {
@@ -48,7 +48,7 @@ class Navigation extends Component {
       return (
         <Menu.Menu position="right">
           <Menu.Item as={NavLink} to="/create">
-            Connect with MetaMask
+            Create New Trophy
           </Menu.Item>
         </Menu.Menu>
       );
