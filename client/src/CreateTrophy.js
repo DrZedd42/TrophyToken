@@ -3,6 +3,7 @@ import withWeb3 from './withWeb3';
 import {
   Button,
   Card,
+  Container,
   Divider,
   Form,
   Grid,
@@ -82,66 +83,68 @@ class CreateTrophy extends Component {
 
     return (
       <Layout web3={web3} accounts={accounts}>
-        <div className="CreateTrophy">
-          <Grid columns={2}>
-            <Grid.Row>
-              <Grid.Column width={16}>
-                <Header as="h1" textAlign="center">Create New Trophy</Header>
-                <Divider fitted />
-              </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-              <Grid.Column>
-                <Card fluid className="trophyCard">
-                  <Card.Content>
-                    <Image
-                      src={trophies[trophy]}
-                      fluid
-                      centered
-                      className="trophyCardImage"
+        <Container>
+          <div className="CreateTrophy">
+            <Grid columns={2}>
+              <Grid.Row>
+                <Grid.Column width={16}>
+                  <Header as="h1" textAlign="center">Create New Trophy</Header>
+                  <Divider fitted />
+                </Grid.Column>
+              </Grid.Row>
+              <Grid.Row>
+                <Grid.Column>
+                  <Card fluid className="trophyCard">
+                    <Card.Content>
+                      <Image
+                        src={trophies[trophy]}
+                        fluid
+                        centered
+                        className="trophyCardImage"
+                      />
+                    </Card.Content>
+                    <Card.Content>
+                      <Card.Header textAlign="center">
+                        {title || defaultTitle}
+                      </Card.Header>
+                    </Card.Content>
+                  </Card>
+                </Grid.Column>
+                <Grid.Column>
+                  <Form
+                    loading={loading}
+                    error={!!errorMessage}
+                    onSubmit={this.onSubmit}
+                  >
+                    <Form.TextArea
+                      required
+                      name="title"
+                      value={title}
+                      label="Trophy title"
+                      onChange={this.onChange}
                     />
-                  </Card.Content>
-                  <Card.Content>
-                    <Card.Header textAlign="center">
-                      {title || defaultTitle}
-                    </Card.Header>
-                  </Card.Content>
-                </Card>
-              </Grid.Column>
-              <Grid.Column>
-                <Form
-                  loading={loading}
-                  error={!!errorMessage}
-                  onSubmit={this.onSubmit}
-                >
-                  <Form.TextArea
-                    required
-                    name="title"
-                    value={title}
-                    label="Trophy title"
-                    onChange={this.onChange}
-                  />
-                  <Form.Input
-                    required
-                    name="address"
-                    value={address}
-                    label="Send to address"
-                    onChange={this.onChange}
-                  />
-                  <Segment className="trophyListSegment">
-                    <List horizontal>
-                      {trophiesList}
-                    </List>
-                  </Segment>
-                  <Message error header="Error" content={errorMessage} />
-                  <Form.Button primary fluid size="huge">
-                    Send Trophy!
-                  </Form.Button>
-                </Form>
-              </Grid.Column>
-            </Grid.Row>
-          </Grid>
-        </div>
+                    <Form.Input
+                      required
+                      name="address"
+                      value={address}
+                      label="Send to address"
+                      onChange={this.onChange}
+                    />
+                    <Segment className="trophyListSegment">
+                      <List horizontal>
+                        {trophiesList}
+                      </List>
+                    </Segment>
+                    <Message error header="Error" content={errorMessage} />
+                    <Form.Button primary fluid size="huge">
+                      Send Trophy!
+                    </Form.Button>
+                  </Form>
+                </Grid.Column>
+              </Grid.Row>
+            </Grid>
+          </div>
+        </Container>
       </Layout>
     );
   }

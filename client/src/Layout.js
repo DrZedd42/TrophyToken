@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container } from 'semantic-ui-react';
 import Navigation from './Navigation';
+import Footer from './Footer';
 
 export default props => {
     const { web3, accounts } = props;
@@ -8,9 +8,8 @@ export default props => {
     return (
       <>
         <Navigation web3={web3} accounts={accounts} />
-        <Container>
-          {props.children}
-        </Container>
+        {props.children}
+        <Footer />
       </>
     );
 };

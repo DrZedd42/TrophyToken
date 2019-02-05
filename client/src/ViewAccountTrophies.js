@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import withWeb3 from './withWeb3';
-import { Card, Divider, Header } from 'semantic-ui-react';
+import { Card, Container, Divider, Header } from 'semantic-ui-react';
 import Layout from './Layout';
 import Trophy from './Trophy';
 
@@ -43,16 +43,18 @@ class ViewAccountTrophies extends Component {
 
     return (
       <Layout web3={web3} accounts={accounts}>
-        <div className="ViewAccountTrophies">
-          <Header as="h1" textAlign="center">
-            View {titleAddress} Trophies
-            <Header.Subheader>{address}</Header.Subheader>
-          </Header>
-          <Divider />
-          <Card.Group stackable itemsPerRow={3}>
-            {trophyList}
-          </Card.Group>
-        </div>
+        <Container>
+          <div className="ViewAccountTrophies">
+            <Header as="h1" textAlign="center">
+              View {titleAddress} Trophies
+              <Header.Subheader>{address}</Header.Subheader>
+            </Header>
+            <Divider />
+            <Card.Group stackable itemsPerRow={3}>
+              {trophyList}
+            </Card.Group>
+          </div>
+        </Container>
       </Layout>
     );
   }
