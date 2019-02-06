@@ -150,4 +150,4 @@ class CreateTrophy extends Component {
   }
 }
 
-export default withWeb3(CreateTrophy);
+export default withWeb3(CreateTrophy, true);

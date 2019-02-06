@@ -32,4 +32,4 @@ class ViewTrophy extends Component {
   }
 }
 
-export default withWeb3(ViewTrophy);
+export default withWeb3(ViewTrophy, true);

@@ -1,4 +1,5 @@
 import React from 'react';
+import withWeb3 from './withWeb3';
 import { NavLink } from 'react-router-dom';
 import { toClass } from 'recompose';
 import {
@@ -21,9 +22,11 @@ import trophy_12 from './trophies/trophy_12.svg';
 import trophy_16 from './trophies/trophy_16.svg';
 import ethereumLogo from './ETHEREUM-ICON_Black_small.png';
 
-export default () => {
+export default withWeb3(props => {
+  const { web3, accounts } = props;
+
   return (
-    <Layout>
+    <Layout web3={web3} accounts={accounts}>
       <div className="About">
         <Segment
           inverted
@@ -126,4 +129,4 @@ export default () => {
       </div>
     </Layout>
   );
-};
+});

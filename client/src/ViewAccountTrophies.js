@@ -60,4 +60,4 @@ class ViewAccountTrophies extends Component {
   }
 }
 
-export default withWeb3(ViewAccountTrophies);
+export default withWeb3(ViewAccountTrophies, true);

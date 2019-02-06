@@ -8,7 +8,7 @@ import { Dimmer, Loader } from 'semantic-ui-react';
  * WrappedComponent should use componentWillReceiveProps to implement web3
  * calls instead of componentDidMount.
  */
-function withWeb3(WrappedComponent) {
+function withWeb3(WrappedComponent, requireAccounts=false) {
   return class extends Component {
     state = {
       web3: null,
@@ -22,7 +22,7 @@ function withWeb3(WrappedComponent) {
 
       try {
         // Get network provider and web3 instance.
-        const web3 = await getWeb3();
+        const web3 = await getWeb3(requireAccounts);
 
         // Use web3 to get the user's accounts.
         const accounts = await web3.eth.getAccounts();
@@ -49,7 +49,8 @@ function withWeb3(WrappedComponent) {
     render() {
       const { web3, accounts, contract, loading } = this.state;
 
-      if (!web3 && !loading) {
+      const hasMetaMask = accounts && accounts.length > 0;
+      if (requireAccounts && !hasMetaMask && !loading) {
         return <MetaMask />;
       }
 

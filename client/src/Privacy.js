@@ -1,12 +1,15 @@
 import React from 'react';
+import withWeb3 from './withWeb3';
 import { Container, Header } from 'semantic-ui-react';
 import Layout from './Layout';
 
 import './Privacy.css';
 
-export default () => {
+export default withWeb3(props => {
+  const { web3, accounts } = props;
+
   return (
-    <Layout>
+    <Layout web3={web3} accounts={accounts}>
       <div className="Terms">
         <Container text>
           <p>Last updated February 2nd, 2019</p>
@@ -109,4 +112,4 @@ export default () => {
       </div>
     </Layout>
   );
-};
+});

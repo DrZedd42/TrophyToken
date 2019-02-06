@@ -42,6 +42,24 @@ class Navigation extends Component {
     }
   };
 
+  renderNetworkStatus() {
+    const { web3 } = this.props;
+
+    if (web3 && (window.ethereum || window.web3)) {
+      return (
+        <Menu.Item>
+          <Icon name="check circle" color="green" /> Network Connected
+        </Menu.Item>
+      );
+    } else {
+      return (
+        <Menu.Item>
+          <Icon name="warning circle" color="red" /> MetaMask Not Installed
+        </Menu.Item>
+      );
+    }
+  }
+
   renderMenuItems() {
     const { web3, accounts } = this.props;
     const { search } = this.state;
@@ -52,7 +70,7 @@ class Navigation extends Component {
       </Menu.Item>
     ];
 
-    if (web3 && accounts) {
+    if (web3 && accounts && accounts.length > 0) {
       listItems.push(
         <Menu.Item key="view" as={NavLink} to={`/view/${accounts[0]}`}>
           View My Trophies
@@ -82,6 +100,7 @@ class Navigation extends Component {
     return (
       <Sidebar.Pushable>
         <Sidebar as={Menu} animation="overlay" vertical visible={visible}>
+          {this.renderNetworkStatus()}
           {this.renderMenuItems()}
         </Sidebar>
         <Sidebar.Pusher onClick={this.onPusherClick} dimmed={visible}>
@@ -91,6 +110,12 @@ class Navigation extends Component {
               &nbsp;
               TrophyToken
             </Menu.Item>
+            <Responsive
+              as={Menu.Menu}
+              minWidth={Responsive.onlyTablet.minWidth}
+            >
+              {this.renderNetworkStatus()}
+            </Responsive>
             <Responsive
               as={Menu.Menu}
               position="right"
