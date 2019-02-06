@@ -24,9 +24,23 @@ class CreateTrophy extends Component {
     title: '',
     address: '',
     trophy: 0,
+    tokenPrice: '',
     loading: false,
     errorMessage: ''
   };
+
+  async componentWillReceiveProps() {
+    const { contract } = this.props;
+
+    if (contract) {
+      try {
+        const tokenPrice = await contract.methods.tokenPrice().call();
+        this.setState({ tokenPrice });
+      } catch(error) {
+        console.log(error);
+      }
+    }
+  }
 
   onChange = (e, { name, value }) => this.setState({ [name]: value });
 
@@ -39,11 +53,12 @@ class CreateTrophy extends Component {
     this.setState({ loading: true, errorMessage: '' });
 
     const { accounts, contract } = this.props;
-    const { title, address, trophy } = this.state;
+    const { title, address, trophy, tokenPrice } = this.state;
 
     try {
       await contract.methods.mint(address, title, trophy).send({
-        from: accounts[0]
+        from: accounts[0],
+        value: tokenPrice
       });
 
       this.setState({ title: '', address: '', trophy: 0 });

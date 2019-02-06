@@ -13,8 +13,15 @@ class Trophy extends Component {
 
   async componentDidMount() {
     const { contract, tokenId } = this.props;
-    const data = await contract.methods.getTokenData(tokenId).call();
-    this.setState({ title: data[0], trophy: parseInt(data[1]) });
+
+    if (contract) {
+      try {
+        const data = await contract.methods.getTokenData(tokenId).call();
+        this.setState({ title: data[0], trophy: parseInt(data[1]) });
+      } catch(error) {
+        console.log(error);
+      }
+    }
   }
 
   render() {

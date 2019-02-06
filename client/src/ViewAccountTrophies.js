@@ -16,7 +16,12 @@ class ViewAccountTrophies extends Component {
       const balance = await contract.methods.balanceOf(address).call();
       const trophies = await Promise.all(
         Array.from(Array(parseInt(balance)).keys()).reverse().map(index => {
-          return contract.methods.tokenOfOwnerByIndex(address, index).call();
+          try {
+            return contract.methods.tokenOfOwnerByIndex(address, index).call();
+          } catch(error) {
+            console.log(error);
+            return null;
+          }
         })
       );
 

@@ -1,18 +1,23 @@
 pragma solidity ^0.5.0;
 
 import 'openzeppelin-solidity/contracts/token/ERC721/ERC721Full.sol';
-import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
+import 'openzeppelin-solidity/contracts/ownership/Ownable.sol';
+import 'openzeppelin-solidity/contracts/payment/escrow/Escrow.sol';
 
 contract TrophyToken is ERC721Full, Ownable {
+    uint256 public tokenPrice;
+    Escrow private escrow;
     mapping(uint256 => string) private titles;
     mapping(uint256 => uint256) private trophies;
     string private uriBase;
 
-    constructor (string memory _uriBase)
+    constructor (uint256 _tokenPrice, string memory _uriBase)
         ERC721Full('TrophyToken', 'TROPH')
         public
     {
+        tokenPrice = _tokenPrice;
         uriBase = _uriBase;
+        escrow = new Escrow();
     }
 
     function mint(
@@ -21,7 +26,14 @@ contract TrophyToken is ERC721Full, Ownable {
         uint256 trophy
     )
         external
+        payable
     {
+        // Minting is free for the owner
+        if (msg.sender != owner()) {
+            require(msg.value >= tokenPrice);
+            escrow.deposit.value(msg.value)(owner());
+        }
+
         uint256 tokenId = getNextTokenId();
 
         _mint(to, tokenId);
@@ -34,8 +46,20 @@ contract TrophyToken is ERC721Full, Ownable {
         _setTokenURI(tokenId, uri);
     }
 
+    function setTokenPrice(uint256 _tokenPrice) external onlyOwner {
+        tokenPrice = _tokenPrice;
+    }
+
+    function withdraw() external onlyOwner {
+        escrow.withdraw(address(uint160(owner())));
+    }
+
     function setURIBase(string calldata _uriBase) external onlyOwner {
         uriBase = _uriBase;
+    }
+
+    function getEscrowBalance() external view onlyOwner returns (uint256) {
+        return escrow.depositsOf(owner());
     }
 
     function getTokenData(uint256 tokenId)
