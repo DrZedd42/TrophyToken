@@ -85,7 +85,7 @@ class CreateTrophy extends Component {
       <Layout web3={web3} accounts={accounts}>
         <Container>
           <div className="CreateTrophy">
-            <Grid columns={2}>
+            <Grid stackable columns={2}>
               <Grid.Row>
                 <Grid.Column width={16}>
                   <Header as="h1" textAlign="center">Create New Trophy</Header>

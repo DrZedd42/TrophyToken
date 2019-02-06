@@ -59,7 +59,7 @@ export default () => {
 
           <Divider hidden />
 
-          <Card.Group centered itemsPerRow={4}>
+          <Card.Group centered stackable itemsPerRow={4}>
             <Card className="trophyCard" fluid>
               <Card.Content>
                 <Image
@@ -110,7 +110,7 @@ export default () => {
           <Divider hidden section />
 
           <Container text>
-            <Item.Group>
+            <Item.Group unstackable>
               <Item>
                 <Item.Image src={ethereumLogo} size="mini" />
                 <Item.Content verticalAlign="middle">
@@ -122,8 +122,6 @@ export default () => {
               </Item>
             </Item.Group>
           </Container>
-
-          <Divider hidden section />
         </Container>
       </div>
     </Layout>

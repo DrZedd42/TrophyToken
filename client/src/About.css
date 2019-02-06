@@ -7,6 +7,20 @@
 }
 
 .About .ui.cards>.card.trophyCard>.content:first-child {
-    max-height: 14em;
-    min-height: 14em;
+    max-height: 17em;
+    min-height: 17em;
+}
+
+@media only screen and (max-width: 767px) {
+    .About .ui.unstackable.items>.item>.image,
+    .About .ui.unstackable.items>.item>.image>img {
+        width: 30px!important;
+    }
+}
+
+@media only screen and (min-width: 768px) {
+    .About .ui.cards>.card.trophyCard>.content:first-child {
+        max-height: 14em;
+        min-height: 14em;
+    }
 }

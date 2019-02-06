@@ -11,10 +11,16 @@
 }
 
 .trophyListItem .ui.image {
-    height: 5em;
+    height: 2em;
 }
 
 .ui.horizontal.list>.item.trophyListItem {
     margin-left: 0;
     padding: 0.2em 0.4em 0.2em 0;
+}
+
+@media only screen and (min-width: 768px) {
+    .trophyListItem .ui.image {
+        height: 5em;
+    }
 }

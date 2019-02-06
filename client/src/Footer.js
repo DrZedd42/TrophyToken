@@ -9,11 +9,13 @@ import {
   Segment
 } from 'semantic-ui-react';
 
+import './Footer.css';
+
 import trophy from './trophies/trophy_8.svg'
 
 export default () => {
   return (
-    <>
+    <div className="Footer">
       <Segment inverted vertical padded="very">
         <Container>
           <Grid stackable relaxed>
@@ -87,6 +89,6 @@ export default () => {
           Copyright &copy; 2019 Will Shahda. All Rights Reserved.
         </Container>
       </Segment>
-    </>
+    </div>
   );
 };

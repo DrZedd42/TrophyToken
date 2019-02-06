@@ -1,13 +1,36 @@
 import React, { Component } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-import { Image, Input, Menu } from 'semantic-ui-react';
+import {
+  Icon,
+  Image,
+  Input,
+  Menu,
+  Responsive,
+  Sidebar
+} from 'semantic-ui-react';
+
+import './Navigation.css';
 
 import trophy from './trophies/trophy_8.svg';
 
 class Navigation extends Component {
   state = {
-    search: ''
+    search: '',
+    visible: false
   };
+
+  onSidebarClick = () => {
+    const { visible } = this.state;
+    this.setState({ visible: !visible });
+  };
+
+  onPusherClick = () => {
+    const { visible } = this.state;
+
+    if (visible) {
+      this.setState({ visible: false });
+    }
+  }
 
   onChangeSearch = async (e, { name, value }) => {
     const { history, web3 } = this.props;
@@ -16,7 +39,6 @@ class Navigation extends Component {
 
     if (web3.utils.isAddress(value)) {
       history.push(`/view/${value}`);
-      this.setState({ [name]: '' });
     }
   };
 
@@ -24,47 +46,73 @@ class Navigation extends Component {
     const { web3, accounts } = this.props;
     const { search } = this.state;
 
+    let listItems = [
+      <Menu.Item key="create" as={NavLink} to="/create">
+        Create New Trophy
+      </Menu.Item>
+    ];
+
     if (web3 && accounts) {
-      return (
-        <Menu.Menu position="right">
-          <Menu.Item as={NavLink} to="/create">
-            Create New Trophy
-          </Menu.Item>
-          <Menu.Item as={NavLink} to={`/view/${accounts[0]}`}>
-            View My Trophies
-          </Menu.Item>
-          <Menu.Item>
-            <Input
-              icon="search"
-              placeholder="Search addresses"
-              name="search"
-              value={search}
-              onChange={this.onChangeSearch}
-            />
-          </Menu.Item>
-        </Menu.Menu>
+      listItems.push(
+        <Menu.Item key="view" as={NavLink} to={`/view/${accounts[0]}`}>
+          View My Trophies
+        </Menu.Item>
       );
-    } else {
-      return (
-        <Menu.Menu position="right">
-          <Menu.Item as={NavLink} to="/create">
-            Create New Trophy
-          </Menu.Item>
-        </Menu.Menu>
+
+      listItems.push(
+        <Menu.Item key="search">
+          <Input
+            icon="search"
+            placeholder="Search addresses"
+            name="search"
+            value={search}
+            onChange={this.onChangeSearch}
+          />
+        </Menu.Item>
       );
     }
+
+    return listItems;
   }
 
   render() {
+    const { children } = this.props;
+    const { visible } = this.state;
+
     return (
-      <Menu fixed="top">
-        <Menu.Item as={NavLink} exact to="/" header>
-          <Image src={trophy} className="menuHeaderImage" />
-          &nbsp;
-          TrophyToken
-        </Menu.Item>
-        {this.renderMenuItems()}
-      </Menu>
+      <Sidebar.Pushable>
+        <Sidebar as={Menu} animation="overlay" vertical visible={visible}>
+          {this.renderMenuItems()}
+        </Sidebar>
+        <Sidebar.Pusher onClick={this.onPusherClick} dimmed={visible}>
+          <Menu fixed="top">
+            <Menu.Item as={NavLink} exact to="/" header>
+              <Image src={trophy} className="menuHeaderImage" />
+              &nbsp;
+              TrophyToken
+            </Menu.Item>
+            <Responsive
+              as={Menu.Menu}
+              position="right"
+              minWidth={Responsive.onlyTablet.minWidth}
+            >
+              {this.renderMenuItems()}
+            </Responsive>
+            <Responsive
+              {...Responsive.onlyMobile}
+              as={Menu.Menu}
+              position="right"
+            >
+              <Menu.Item onClick={this.onSidebarClick}>
+                <Icon name="sidebar" />
+              </Menu.Item>
+            </Responsive>
+          </Menu>
+          <div className="SidebarPusherChildren">
+            {children}
+          </div>
+        </Sidebar.Pusher>
+      </Sidebar.Pushable>
     );
   }
 }

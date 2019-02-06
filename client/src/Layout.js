@@ -7,9 +7,10 @@ export default props => {
 
     return (
       <>
-        <Navigation web3={web3} accounts={accounts} />
-        {props.children}
-        <Footer />
+        <Navigation web3={web3} accounts={accounts}>
+          {props.children}
+          <Footer />
+        </Navigation>
       </>
     );
 };
