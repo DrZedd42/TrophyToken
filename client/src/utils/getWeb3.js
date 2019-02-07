@@ -22,12 +22,15 @@ const getWeb3 = async (requireAccounts, resolve, reject) => {
     }
   }
 
-  // Fallback to localhost; use dev console port by default...
-  const provider = new Web3.providers.HttpProvider(
-    process.env.REACT_APP_DEFAULT_PROVIDER
-  );
+  let defaultNetwork;
+  if (process.env.NODE_ENV === 'production') {
+    defaultNetwork = process.env.REACT_APP_PROD_NETWORK;
+  } else {
+    defaultNetwork = process.env.REACT_APP_DEV_NETWORK;
+  }
+  const provider = new Web3.providers.HttpProvider(defaultNetwork);
   const web3 = new Web3(provider);
-  console.log("No web3 instance injected, using Local web3.");
+  console.log("No web3 instance injected, using default provider.");
   resolve(web3);
 }
 
