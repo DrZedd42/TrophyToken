@@ -31,6 +31,9 @@ contract TrophyToken is ERC721Full, Ownable {
         // Minting is free for the owner
         if (msg.sender != owner()) {
             require(msg.value >= tokenPrice);
+        }
+
+        if (msg.value > 0) {
             escrow.deposit.value(msg.value)(owner());
         }
 
