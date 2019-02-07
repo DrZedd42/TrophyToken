@@ -11,7 +11,7 @@ class Trophy extends Component {
     trophy: 0
   }
 
-  async componentDidMount() {
+  getTokenData = async () => {
     const { contract, tokenId } = this.props;
 
     if (contract) {
@@ -22,6 +22,14 @@ class Trophy extends Component {
         console.log(error);
       }
     }
+  };
+
+  componentDidMount() {
+    this.getTokenData();
+  }
+
+  componentWillReceiveProps() {
+    this.getTokenData();
   }
 
   render() {
