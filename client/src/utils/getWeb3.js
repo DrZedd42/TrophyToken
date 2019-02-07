@@ -16,7 +16,7 @@ const getWeb3 = async (requireAccounts, resolve, reject) => {
     // Legacy dapp browsers...
     } else if (window.web3) {
       // Use Mist/MetaMask's provider.
-      const web3 = window.web3;
+      const web3 = new Web3(window.web3.currentProvider);
       console.log("Injected web3 detected.");
       resolve(web3);
     }
@@ -24,8 +24,7 @@ const getWeb3 = async (requireAccounts, resolve, reject) => {
 
   // Fallback to localhost; use dev console port by default...
   const provider = new Web3.providers.HttpProvider(
-    //"http://127.0.0.1:9545"
-    'https://rinkeby.infura.io/v3/a82803c964524aa6aeaf09a5a1c63a2d'
+    process.env.REACT_APP_DEFAULT_PROVIDER
   );
   const web3 = new Web3(provider);
   console.log("No web3 instance injected, using Local web3.");
