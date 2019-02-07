@@ -73,6 +73,9 @@ class CreateTrophy extends Component {
     const { web3, accounts } = this.props;
     const { title, address, trophy, loading, errorMessage } = this.state;
 
+    let { tokenPrice } = this.state;
+    tokenPrice = web3 && web3.utils.fromWei(tokenPrice, 'ether');
+
     const defaultTitle = 'Enter Trophy Title...';
 
     const trophiesList = trophies.map((src, index) => {
@@ -151,9 +154,14 @@ class CreateTrophy extends Component {
                       </List>
                     </Segment>
                     <Message error header="Error" content={errorMessage} />
-                    <Form.Button primary fluid size="huge">
-                      Send Trophy!
-                    </Form.Button>
+                    <Button primary fluid size="huge" animated="fade">
+                      <Button.Content visible>
+                        Send Trophy!
+                      </Button.Content>
+                      <Button.Content hidden>
+                        &Xi;{tokenPrice}
+                      </Button.Content>
+                    </Button>
                   </Form>
                 </Grid.Column>
               </Grid.Row>

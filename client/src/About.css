@@ -11,6 +11,10 @@
     min-height: 17em;
 }
 
+.About .ui.items>.item {
+    margin: 4em 0;
+}
+
 @media only screen and (max-width: 767px) {
     .About .ui.unstackable.items>.item>.image,
     .About .ui.unstackable.items>.item>.image>img {
